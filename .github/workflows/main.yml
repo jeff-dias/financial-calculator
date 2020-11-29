@@ -32,7 +32,9 @@ jobs:
         run: echo ${{ secrets.DOCKERHUB_PASS }} | docker login -u ${{ secrets.DOCKERHUB_USER }} --password-stdin
 
       - name: Build the tagged Docker image
-        run: docker build . -f FinancialCalculator/Dockerfile -t jeffdias/financial_calculator:${{ github.sha }}
+        run: |
+            cd FinancialCalculator
+            docker build . -t jeffdias/financial_calculator:${{ github.sha }}
       
       - name: Push the tagged Docker image
         run: docker push jeffdias/financial_calculator:${{ github.sha }}
