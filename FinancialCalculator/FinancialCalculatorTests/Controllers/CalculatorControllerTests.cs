@@ -29,11 +29,27 @@ namespace FinancialCalculatorTests.Controllers
             var period = _faker.Random.Int(1, 120);
 
             //Act
-            var response = controller.Get(initialValue, period);
+            var response = controller.GetCalculator(initialValue, period);
 
             //Assert
             var expectedValue = Math.Round(initialValue * Convert.ToDecimal(Math.Pow((double)(1 + RateConstants.RateBase), period)), 2, MidpointRounding.ToZero);
             Assert.Equal(expectedValue, response);
+
+            //Dispose
+            controller.Dispose();
+        }
+
+        [CustomFact]
+        public void Should_return_git_hub_repository_url_successful()
+        {
+            //Arrange
+            var controller = new CalculatorController(_logger.Object);
+
+            //Act
+            var response = controller.GetShowMeTheCode();
+
+            //Assert
+            Assert.Equal(RateConstants.GitHubRepositoryUrl, response);
 
             //Dispose
             controller.Dispose();

@@ -17,7 +17,7 @@ namespace FinancialCalculator.Controllers
 
         [HttpGet]
         [Route(ControllerConstants.GetCalculatorRoute)]
-        public decimal Get(decimal valorInicial, int meses)
+        public decimal GetCalculator(decimal valorInicial, int meses)
         {
             _logger.LogInformation($"Initial value receipt {valorInicial}");
             _logger.LogInformation($"Period value receipt {meses}");
@@ -27,6 +27,13 @@ namespace FinancialCalculator.Controllers
             _logger.LogInformation($"Calculate value returned {calculatedValue}");
 
             return Math.Round(calculatedValue, 2, MidpointRounding.ToZero);
+        }
+
+        [HttpGet]
+        [Route(ControllerConstants.GetShowMeTheCodeRoute)]
+        public string GetShowMeTheCode()
+        {
+            return RateConstants.GitHubRepositoryUrl;
         }
     }
 }
