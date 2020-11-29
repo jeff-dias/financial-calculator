@@ -1,0 +1,49 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI-and-integrated-tests
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2      
+      - uses: actions/setup-node@v2-beta
+        with:
+          node-version: '12'
+
+      - name: Docker login
+        run: echo ${{ secrets.DOCKERHUB_PASS }} | docker login -u ${{ secrets.DOCKERHUB_USER }} --password-stdin
+
+      - name: Build the tagged Docker image
+        run: |
+            cd FinancialCalculator
+            docker build . -t jeffdias/financial_calculator:${{ github.sha }}
+
+      - name: Run FinancialCalculator in container from tagged Docker image
+        run: docker run -dp 8088:8080 jeffdias/financial_calculator:${{ github.sha }}
+
+      - name: Install Newman
+        run: npm install -g newman
+        
+      - name: Run integrated tests using Postaman Runner by Newman
+        run: newman run "FinancialCalculator/FinancialCalculatorIntegratedTests/Financial Calculator - Integrated Tests.postman_collection.json" --bail --verbose
+
+      - name: Push the tagged Docker image after tests
+        run: docker push jeffdias/financial_calculator:${{ github.sha }}
