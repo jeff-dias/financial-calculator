@@ -15,7 +15,7 @@
 						"id": "9dce5282-41c8-46a1-b6a2-30088f8a3a81",
 						"exec": [
 							"pm.test(\"Rate is 0.01\", function () {\r",
-							"    pm.response === 0.001;\r",
+							"    pm.response === 0.01;\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -60,7 +60,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8088/calculaJuros?valorInicial=100&meses=5",
+					"raw": "http://localhost:8088/calculaJuros?valorInicial=200&meses=5",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -72,7 +72,7 @@
 					"query": [
 						{
 							"key": "valorInicial",
-							"value": "100"
+							"value": "200"
 						},
 						{
 							"key": "meses",
