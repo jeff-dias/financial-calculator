@@ -29,22 +29,16 @@ jobs:
           node-version: '12'
 
       - name: Docker login
-        run: |
-            echo ${{ secrets.DOCKERHUB_PASS }} | docker login -u ${{ secrets.DOCKERHUB_USER }} --password-stdin
-            echo ${{ github.sha }}
-        
-      - name: Generate Docker image tag from commit
-        id: variables
-        run: echo ::set-output name=tag::$(echo ${GITHUB_REF:10})
-        
+        run: echo ${{ secrets.DOCKERHUB_PASS }} | docker login -u ${{ secrets.DOCKERHUB_USER }} --password-stdin
+
       - name: Build the tagged Docker image
-        run: docker build . -f Dockerfile -t jeffdias/financial_calculator:${{steps.vars.outputs.tag}}
+        run: docker build . -f Dockerfile -t jeffdias/financial_calculator:${{ github.sha }}
       
       - name: Push the tagged Docker image
-        run: docker push jeffdias/financial_calculator:${{steps.vars.outputs.tag}}
+        run: docker push jeffdias/financial_calculator:${{ github.sha }}
 
       - name: Run FinancialCalculator in container from tagged Docker image
-        run: docker run -dp 8088:8080 jeffdias/financial_calculator:${{steps.vars.outputs.tag}}
+        run: docker run -dp 8088:8080 jeffdias/financial_calculator:${{ github.sha }}
 
       - name: Install Newman
         run: npm install -g newman
