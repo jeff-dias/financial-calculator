@@ -1,12 +1,9 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI-and-integrated-tests
+name: PR-to-main
 
 # Controls when the action will run. 
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
-  push:
-    branches: [ main ]
   pull_request:
     branches: [ main ]
 
@@ -44,6 +41,3 @@ jobs:
         
       - name: Run integrated tests using Postaman Runner by Newman
         run: newman run "FinancialCalculator/FinancialCalculatorIntegratedTests/Financial Calculator - Integrated Tests.postman_collection.json" --bail --verbose
-
-      - name: Push the tagged Docker image after tests
-        run: docker push jeffdias/financial_calculator:${{ github.sha }}
