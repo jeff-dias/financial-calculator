@@ -45,4 +45,4 @@ jobs:
       - name: Install Newman
         run: npm install -g newman
       - name: Run integrated tests using Postaman Runner by Newman
-        run: newman run "https://www.getpostman.com/collections/d0cb5e26296959141533"
+        run: newman run "FinancialCalculatorIntegratedTests/Financial Calculator - Integrated Tests.postman_collection.json"
