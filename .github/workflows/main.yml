@@ -28,18 +28,22 @@ jobs:
         with:
           node-version: '12'
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+      - name: Docker login
+        run: echo ${{ secrets.DOCKERHUB_PASS }} | docker login -u ${{ secrets.DOCKERHUB_USER }} --password-stdin
+        
+      - name: Generate Docker image tag from commit
+        id: variables
+        run: echo ::set-output name=tag::$(echo ${GITHUB_REF:10})
+        
+      - name: Build the tagged Docker image
+        run: docker build . -f Dockerfile -t jeffdias/financial_calculator:${{steps.vars.outputs.tag}}
+      
+      - name: Push the tagged Docker image
+        run: docker push jeffdias/financial_calculator:${{steps.vars.outputs.tag}}
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
-          
-      - name: Run FinancialCalculator in container
-        run: docker run -dp 8088:8080 jeffdias/financial_calculator
+      - name: Run FinancialCalculator in container from tagged Docker image
+        run: docker run -dp 8088:8080 jeffdias/financial_calculator:${{steps.vars.outputs.tag}}
+
       - name: Install Newman
         run: npm install -g newman
       - name: Run integrated tests using Postaman Runner by Newman
