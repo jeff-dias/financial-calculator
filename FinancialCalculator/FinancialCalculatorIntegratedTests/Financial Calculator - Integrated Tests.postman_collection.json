@@ -88,7 +88,7 @@
 					"script": {
 						"id": "17935559-9d97-4224-a8ee-c3ce1dfac363",
 						"exec": [
-							"tests[\"GitHub repository URL is https://github.com/jeff-dias/financial-calculator\"] = responseBody === \"http://github.com/jeff-dias/financial-calculator\";"
+							"tests[\"GitHub repository URL is https://github.com/jeff-dias/financial-calculator\"] = responseBody === \"https://github.com/jeff-dias/financial-calculator\";"
 						],
 						"type": "text/javascript"
 					}
