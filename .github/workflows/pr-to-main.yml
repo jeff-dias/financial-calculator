@@ -43,7 +43,7 @@ jobs:
         run: npm install -g newman
         
       - name: Run integrated tests using Postaman Runner by Newman
-        run: newman run "FinancialCalculator/FinancialCalculatorIntegratedTests/Financial Calculator - Integrated Tests.postman_collection.json"
+        run: newman run "FinancialCalculator/FinancialCalculatorIntegratedTests/Financial Calculator - Integrated Tests.postman_collection.json" --bail --verbose
 
       - name: Push the tagged Docker image after tests
         run: docker push jeffdias/financial_calculator:${{ github.sha }}
