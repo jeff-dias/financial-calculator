@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: PR-to-main
+name: pr-to-main
 
 # Controls when the action will run. 
 on:
