@@ -5,8 +5,8 @@ name: CI-and-integrated-tests
 # Controls when the action will run. 
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
-  #push:
-  #  branches: [ main ]
+  push:
+    branches: [ main ]
   pull_request:
     branches: [ main ]
 
@@ -35,14 +35,15 @@ jobs:
         run: |
             cd FinancialCalculator
             docker build . -t jeffdias/financial_calculator:${{ github.sha }}
-      
-      - name: Push the tagged Docker image
-        run: docker push jeffdias/financial_calculator:${{ github.sha }}
 
       - name: Run FinancialCalculator in container from tagged Docker image
         run: docker run -dp 8088:8080 jeffdias/financial_calculator:${{ github.sha }}
 
       - name: Install Newman
         run: npm install -g newman
+        
       - name: Run integrated tests using Postaman Runner by Newman
         run: newman run "FinancialCalculator/FinancialCalculatorIntegratedTests/Financial Calculator - Integrated Tests.postman_collection.json"
+
+      - name: Push the tagged Docker image after tests
+        run: docker push jeffdias/financial_calculator:${{ github.sha }}
