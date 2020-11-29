@@ -15,7 +15,7 @@
 						"id": "9dce5282-41c8-46a1-b6a2-30088f8a3a81",
 						"exec": [
 							"pm.test(\"Rate is 0.01\", function () {\r",
-							"    pm.response === 0.01;\r",
+							"    pm.response === 0.001;\r",
 							"});"
 						],
 						"type": "text/javascript"
