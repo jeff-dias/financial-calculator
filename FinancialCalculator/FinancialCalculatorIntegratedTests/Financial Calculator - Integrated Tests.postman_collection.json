@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "3cc0b8a5-5722-4cce-af4b-38d33262b7c2",
-		"name": "Financial Calculator - Tests",
+		"name": "Financial Calculator - Integrated Tests",
 		"description": "FinancialCalculator integrated tests collection",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -14,9 +14,7 @@
 					"script": {
 						"id": "9dce5282-41c8-46a1-b6a2-30088f8a3a81",
 						"exec": [
-							"pm.test(\"Rate is 0.01\", function () {\r",
-							"    pm.response === 0.01;\r",
-							"});"
+							"tests[\"Rate is 0.01\"] = responseBody === \"0.01\";"
 						],
 						"type": "text/javascript"
 					}
@@ -48,9 +46,7 @@
 					"script": {
 						"id": "8ad7f426-41f8-42c3-aa40-d3f58a836746",
 						"exec": [
-							"pm.test(\"Final value is 105.10\", function () {\r",
-							"    pm.response === 105.10;\r",
-							"});"
+							"tests[\"Final value is 105.10\"] = responseBody === \"105.10\";"
 						],
 						"type": "text/javascript"
 					}
@@ -92,9 +88,7 @@
 					"script": {
 						"id": "17935559-9d97-4224-a8ee-c3ce1dfac363",
 						"exec": [
-							"pm.test(\"GitHub repository URL is https://github.com/jeff-dias/financial-calculator\", function () {\r",
-							"    pm.response === \"https://github.com/jeff-dias/financial-calculator\";\r",
-							"});"
+							"tests[\"GitHub repository URL is https://github.com/jeff-dias/financial-calculator\"] = responseBody === \"http://github.com/jeff-dias/financial-calculator\";"
 						],
 						"type": "text/javascript"
 					}
