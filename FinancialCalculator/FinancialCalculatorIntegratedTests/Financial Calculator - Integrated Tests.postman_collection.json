@@ -111,6 +111,38 @@
 				"description": "Integrated test to validate GitHub repository URL"
 			},
 			"response": []
+		},
+		{
+			"name": "Get Swagger page",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5594dc6b-e082-4515-9a0e-b7c7c250c1e6",
+						"exec": [
+							"tests[\"Swagger page is available\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8088/swagger",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"swagger"
+					]
+				},
+				"description": "Integrated test to validate GitHub repository URL"
+			},
+			"response": []
 		}
 	],
 	"event": [
