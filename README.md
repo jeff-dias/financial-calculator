@@ -6,20 +6,33 @@ O sistema consiste em duas APIs desenvolvidas para ajudar usuários no cálculo 
 Esta API consiste em um endpoint de verbo GET que retorna a taxa de juros utilizada pela aplicação para execução dos cálculos.
 Atualmente o valor é de 1%, sendo assim, a API retorna o valor 0,01 no corpo da sua resposta.
 
+A API responde pelo path relativo *"/taxaJuros"*.
+
 # API CalculaJuros
-Esta API consiste em um endpoint de verbo GET que recebe por parâmetro query string o valor inicial e o número de meses a serem utilizados no cálculo. O retorno desta API é o valor final a ser pago aplicando a fórmula "*Valor Final = Valor Inicial * (1 + Taxa de Juros) ^ Tempo*".
+Esta API consiste em um endpoint de verbo GET que recebe por parâmetro query string o valor inicial e o número de meses a serem utilizados no cálculo. O retorno desta API é o valor final a ser pago aplicando a fórmula *"Valor Final = Valor Inicial * (1 + Taxa de Juros) ^ Tempo"*.
 
 Um exemplo de uso seria a utilização dos parâmetros valor inicial e número de meses como 100 e 5, respectivamente, retornando assim o valor final 105,10.
 
+A API responde pelo path relativo *"/calculaJuros"*.
+
 # API ShowMeTheCode
 Esta API consiste em um endpoing de verbo GET que retorna a URL do repositório GitHub deste projeto. Serve para facilitar o acesso ao código do projeto e entender melhor a sua implementação.
+
+A API responde pelo path relativo *"/showMeTheCode"*.
 
 # Testes unitários
 Os testes unitários do projeto foram desenvolvidos utilizando xUnit. Eles servem para validar que as implementações fazem exatamente o que se espera delas.
 
 # Teste integrados
 Os testes integrados do projeto foram desenvolvidos utilizando Postman. Por se tratar de uma aplicação de API, entendeu-se que o Postman serviria bem para o propósito de validar se os endpoints respondem o que se espera deles em um cenário que exigia todos os componentes da aplicação funcionais e estáveis.
+
 Localmente os testes podem ser feitos com a utilização do Postman, mas na esteira de build foi necessário implementar o uso do [Newman](https://learning.postman.com/docs/running-collections/using-newman-cli/command-line-integration-with-newman/) para execução da collection via command line.
+
+Os testes integrados implementados são:
+- Get na API TaxaJuros validando se o valor retornado é igual a *0.01*. Este teste serve para validar se a API está retornando o valor esperado;
+- Get na API CalculaJuros, com o parâmetro *"valorInicial"* como *100* e o *"meses"* como *5*, validando se o valor retornado é igual a *105.10*. Este teste serve para validar se a API está calculando e retornando o valor esperado;
+- Get na API ShowMeTheCode validando se o valor retornado é igual a *https://github.com/jeff-dias/financial-calculator*. Este teste serve para validar se a API está retornando a URL correta do repositório;
+- Get no path relativo */swagger* validando se o código de resposta será *200*. Este teste serve para validar se o Swagger da aplicação está funcional e acessível;
 
 # Dockerfile
 O Dockerfile da aplicação foi criado com base no que já é disponibilizado pelo Visual Studio, com algumas customizações. Uma delas é a utilização de um usuário próprio para criação da imagem, isto facilita a localização de arquivos e também segrega melhor a aplicação dentro do container. Em momentos de depuração via shell diretamente no container esta ação pode ser útil em alguns momentos.
@@ -47,5 +60,6 @@ O segundo é o push-to-main.yaml que consiste na validação de pushs feitos na 
 - Fazer o push da imagem recém construída e testada para o DockerHub;
 
 # Aprendizados
-Com este projeto foi possível revisitar alguns conceitos de Docker que eu, por um pouco de falta de prática, já havia me esquecido. Também foi possível praticar o uso do GitHub, já que este não é muito utilizado profissionalmente nas empresas da minha região, e também aprender a utilizar o GitHub Actions.
+Com este projeto foi possível revisitar alguns conceitos de Docker que eu, por um pouco de falta de prática, já havia me esquecido. Também foi possível praticar o uso do GitHub, já que este não é muito utilizado profissionalmente nas empresas da minha região, e aprender a utilizar o GitHub Actions.
+
 O GitHub Actions é recente mas já possui muita documentação e templates. Aconselho a todo desenvolvedor que se aventure nesta área do GitHub pois vale muito a pena.
